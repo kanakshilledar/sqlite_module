@@ -28,11 +28,11 @@ include(ExternalProject)
 # Add an external project to be able download and build the third
 # party library. In this case downloading is not necessary as it has
 # been committed to the repository.
-set(mylib_src_dir   ${CMAKE_CURRENT_SOURCE_DIR}/mylib)
-set(mylib_build_dir ${CMAKE_CURRENT_BINARY_DIR}/mylib)
+set(sqlitelib_src_dir   ${CMAKE_CURRENT_SOURCE_DIR}/sqlitelib)
+set(sqlitelib_build_dir ${CMAKE_CURRENT_BINARY_DIR}/sqlitelib)
 
-set(MYLIB_LIB_DIR     ${mylib_build_dir}/lib)
-set(MYLIB_INCLUDE_DIR ${mylib_src_dir}/include)
+set(SQLITELIB_LIB_DIR     ${sqlitelib_build_dir}/lib)
+set(SQLITELIB_INCLUDE_DIR ${sqlitelib_src_dir}/include)
 
 if(CMAKE_GENERATOR STREQUAL "Unix Makefiles")
 # https://www.gnu.org/software/make/manual/html_node/MAKE-Variable.html
@@ -43,27 +43,27 @@ endif()
 
 ExternalProject_Add(
   sqlite3_module                 # Name for custom target
-  PREFIX     ${mylib_build_dir} # Root dir for entire project
-  SOURCE_DIR ${mylib_src_dir}
-  BINARY_DIR ${mylib_src_dir} # This particular build system is invoked from the root
+  PREFIX     ${sqlitelib_build_dir} # Root dir for entire project
+  SOURCE_DIR ${sqlitelib_src_dir}
+  BINARY_DIR ${sqlitelib_src_dir} # This particular build system is invoked from the root
   CONFIGURE_COMMAND ""    # Skip configuring the project, e.g. with autoconf
   BUILD_COMMAND
   ${submake}
-  PREFIX=${mylib_build_dir}
+  PREFIX=${sqlitelib_build_dir}
   CC=${CMAKE_C_COMPILER}
   AR=${CMAKE_AR}
   CFLAGS=${external_project_cflags}
   INSTALL_COMMAND ""      # This particular build system has no install command
-  BUILD_BYPRODUCTS ${MYLIB_LIB_DIR}/libsqlite3.a
+  BUILD_BYPRODUCTS ${SQLITELIB_LIB_DIR}/libsqlite3.a
   )
 
 # Create a wrapper CMake library that our app can link with
-add_library(mylib_lib STATIC IMPORTED GLOBAL)
+add_library(sqlitelib_lib STATIC IMPORTED GLOBAL)
 add_dependencies(
-  mylib_lib
-  mylib_project
+  sqlitelib_lib
+  sqlitelib_project
   )
-set_target_properties(mylib_lib PROPERTIES IMPORTED_LOCATION             ${MYLIB_LIB_DIR}/libsqlite3.a)
-set_target_properties(mylib_lib PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${MYLIB_INCLUDE_DIR})
+set_target_properties(sqlitelib_lib PROPERTIES IMPORTED_LOCATION             ${SQLITELIB_LIB_DIR}/libsqlite3.a)
+set_target_properties(sqlitelib_lib PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${SQLITELIB_INCLUDE_DIR})
 
-target_link_libraries(app PUBLIC mylib_lib)
+target_link_libraries(app PUBLIC sqlitelib_lib)
