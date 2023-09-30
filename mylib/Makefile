@@ -20,8 +20,8 @@ endif
 all:
 	-$(MKDIR) "$(OBJ_DIR)"
 	-$(MKDIR) "$(LIB_DIR)"
-	$(CC) -c $(CFLAGS) -MD -Iinclude src/mylib.c -o $(OBJ_DIR)/mylib.o
-	$(AR) -rcs $(LIB_DIR)/libmylib.a $(OBJ_DIR)/mylib.o
+	$(CC) -c $(CFLAGS) -MD -Iinclude src/sqlite3.c -o $(OBJ_DIR)/sqlite3.o
+	$(AR) -rcs $(LIB_DIR)/libsqlite3.a $(OBJ_DIR)/sqlite3.o
 
 clean:
 	$(DEL) "$(OBJ_DIR)" "$(LIB_DIR)"

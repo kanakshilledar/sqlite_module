@@ -42,7 +42,7 @@ set(submake "make")
 endif()
 
 ExternalProject_Add(
-  mylib_project                 # Name for custom target
+  sqlite3_module                 # Name for custom target
   PREFIX     ${mylib_build_dir} # Root dir for entire project
   SOURCE_DIR ${mylib_src_dir}
   BINARY_DIR ${mylib_src_dir} # This particular build system is invoked from the root
@@ -54,7 +54,7 @@ ExternalProject_Add(
   AR=${CMAKE_AR}
   CFLAGS=${external_project_cflags}
   INSTALL_COMMAND ""      # This particular build system has no install command
-  BUILD_BYPRODUCTS ${MYLIB_LIB_DIR}/libmylib.a
+  BUILD_BYPRODUCTS ${MYLIB_LIB_DIR}/libsqlite3.a
   )
 
 # Create a wrapper CMake library that our app can link with
@@ -63,7 +63,7 @@ add_dependencies(
   mylib_lib
   mylib_project
   )
-set_target_properties(mylib_lib PROPERTIES IMPORTED_LOCATION             ${MYLIB_LIB_DIR}/libmylib.a)
+set_target_properties(mylib_lib PROPERTIES IMPORTED_LOCATION             ${MYLIB_LIB_DIR}/libsqlite3.a)
 set_target_properties(mylib_lib PROPERTIES INTERFACE_INCLUDE_DIRECTORIES ${MYLIB_INCLUDE_DIR})
 
 target_link_libraries(app PUBLIC mylib_lib)

@@ -10,11 +10,11 @@
 #include <zephyr/kernel.h>
 #include <stdio.h>
 
-#include <mylib.h>
+#include <sqlite3.h>
 
 int main(void)
 {
 	printf("Hello World!\n");
-	mylib_hello_world();
+	// mylib_hello_world();
 	return 0;
 }
