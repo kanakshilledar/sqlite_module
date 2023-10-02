@@ -23,5 +23,11 @@ all:
 	$(CC) -c $(CFLAGS) -MD -Iinclude src/sqlite3.c -o $(OBJ_DIR)/sqlite3.o
 	$(AR) -rcs $(LIB_DIR)/libsqlite3.a $(OBJ_DIR)/sqlite3.o
 
+	$(CC) -c $(CFLAGS) -MD -Iinclude src/unishox1.c -o $(OBJ_DIR)/unishox1.o
+	$(AR) -rcs $(LIB_DIR)/libunishox1.a $(OBJ_DIR)/unishox1.o
+
+	$(CC) -c $(CFLAGS) -MD -Iinclude src/shox96_0_2.cpp -o $(OBJ_DIR)/shox96_0_2.o
+	$(AR) -rcs $(LIB_DIR)/libshox96_0_2.a $(OBJ_DIR)/shox96_0_2.o
+
 clean:
 	$(DEL) "$(OBJ_DIR)" "$(LIB_DIR)"

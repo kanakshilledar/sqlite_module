@@ -55,6 +55,7 @@ ExternalProject_Add(
   CFLAGS=${external_project_cflags}
   INSTALL_COMMAND ""      # This particular build system has no install command
   BUILD_BYPRODUCTS ${SQLITELIB_LIB_DIR}/libsqlite3.a
+  DEPENDS zephyr_interface
   )
 
 # Create a wrapper CMake library that our app can link with
