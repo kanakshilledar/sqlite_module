@@ -12,8 +12,7 @@
 
 #include <sqlite3.h>
 
-int main(void)
-{
+int main(void) {
 	printf("Hello World!\n");
 	// mylib_hello_world();
 	return 0;
